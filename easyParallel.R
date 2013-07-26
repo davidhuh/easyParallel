@@ -1,16 +1,25 @@
 ### Description:
 ##   Parallelize any single-threaded function and assemble output in a list.
+##   Currently limited to "embarassingly parallel" computations, essentially
+##   the types of things you might run in a for() loop.  This would include
+##   simulatation-type applications such as MCMC or bootstrapping.
+##
+##   This function could be extended to accept lists of different arguments.
+##   For example, this would permit run regression models with different
+##   sets of covariates.
 ##
 ###  Author: David Huh
 ##
 ###  Dependencies: parallel, foreach, doMC -or- doSNOW
 ##
-###  Arguments:  fun.name  = a fitted model object of class glm, hurdle, or zeroinfl
+###  Arguments:  fun.name  = a string specifying the name of the function
 ##               fun.pkg   = if the function you specify is not part of base R,
 ##                           you must specify the name of the package as a string.
 ##                n.reps   = number of times the function is run
 ##                dopkg    = a string specifying the foreach adaptor package to use.
 ##                           [options: "doMC" (default), "doSNOW"]
+##                 ...     = any additional arguments that you would pass to the
+##                           original function
 ##
 ###  Values:    a list of returned values, one for each run of the function.
 ##

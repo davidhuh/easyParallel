@@ -30,7 +30,9 @@ easyParallel <- function(fun.name, fun.pkg=NULL, n.reps=2, dopkg="doMC", ...) {
     stop("Missing a function to be used.") 
   
   require(parallel, quietly=TRUE)
-  ncores <- detectCores() - 1   # hold one core back for other tasks
+  
+  maxcores <- detectCores() - 1         # hold one core back for other tasks
+  ncores   <- min(c(n.reps, maxcores))  # cap number of cores to those needed
 
   ## Utility function that installs package if not already installed
   pkgTest <- function(pkgname) {
